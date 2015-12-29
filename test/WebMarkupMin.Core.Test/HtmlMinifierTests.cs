@@ -5568,6 +5568,22 @@ namespace WebMarkupMin.Core.Test
 		}
 
 		/// <summary>
+		/// Minification of Angular binding expressions with edge case expressions.
+		/// </summary>
+		[Fact]
+		public void MinificationOfAngularBindingWithEdgeCaseExpressionsIsCorrect()
+	        {
+			var minifyingExpressionsMinifier = new HtmlMinifier(
+			new HtmlMinificationSettings(true) { MinifyAngularBindingExpressions = true });
+
+			const string input1 = "<span>If a &lt; 3 show Correct: {{val < 3 ? 'Correct' : 'Incorrect'}}</span>";
+	
+			var errors = minifyingExpressionsMinifier.Minify(input1).Errors;
+	
+			Assert.Equal(0, errors.Count);
+		}
+
+		/// <summary>
 		/// Minification of Angular binding expressions in element directives
 		/// </summary>
 		[Fact]
